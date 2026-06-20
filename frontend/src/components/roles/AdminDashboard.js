@@ -127,7 +127,7 @@ export default function AdminDashboard({ currentUser, boothId }) {
     useEffect(() => {
         loadData();
 
-        const wsUrl = process.env.REACT_APP_BACKEND_URL.replace(/^http/, 'ws');
+        const wsUrl = (process.env.REACT_APP_BACKEND_URL || 'https://booth-iq-api.onrender.com').replace(/^http/, 'ws');
         const socket = new WebSocket(`${wsUrl}/ws/notifications/${currentUser.id}`);
 
         socket.onmessage = (event) => {

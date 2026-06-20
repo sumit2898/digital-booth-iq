@@ -2,13 +2,9 @@
   "version": 2,
   "buildCommand": "cd frontend && CI=false npm install --legacy-peer-deps && npm run build",
   "outputDirectory": "frontend/build",
-  "framework": "create-react-app",
+  "installCommand": "echo 'skip root install'",
   "cleanUrls": true,
   "rewrites": [
-    {
-      "source": "/static/(.*)",
-      "destination": "/static/$1"
-    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
@@ -25,11 +21,19 @@
       ]
     },
     {
-      "source": "/favicon.ico",
+      "source": "/(.*)",
       "headers": [
         {
-          "key": "Cache-Control",
-          "value": "public, max-age=86400"
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
         }
       ]
     }
